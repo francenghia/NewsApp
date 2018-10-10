@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="7dp"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="10dp">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <ImageView
+               android:id="@+id/img"
+               android:transitionName="img"
+               android:layout_width="match_parent"
+               android:layout_height="200dp"
+               android:scaleType="centerCrop"
+               tools:ignore="UnusedAttribute"
+               />
+           <ImageView
+               android:id="@+id/shadown_bottom"
+               android:transitionName="img"
+               android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:src="@drawable/bottom_shadow"
+               android:layout_alignBottom="@id/img"
+               />
+           <ProgressBar
+               android:id="@+id/progressBar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="70dp"
+               style="@android:style/Widget.ProgressBar.Small"/>
+
+           <FrameLayout
+               android:id="@+id/layoutDate"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/img"
+               android:background="@drawable/round_white"
+               android:padding="5dp"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="20dp"
+               android:layout_marginTop="-50dp">
+
+               <ImageView
+                   android:layout_width="18dp"
+                   android:layout_height="18dp"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginRight="5dp"
+                   android:src="@drawable/ic_date"
+                   />
+                <TextView
+                    android:id="@+id/publishedAt"
+                    android:text="20 10 1998"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#606060"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+           </FrameLayout>
+
+           <TextView
+               android:id="@+id/author"
+               android:layout_width="match_parent"
+               android:layout_height="30dp"
+               android:drawablePadding="10dp"
+               android:ellipsize="end"
+               android:maxLines="1"
+               android:textColor="@android:color/white"
+               android:text="Author"
+               android:singleLine="true"
+               android:gravity="bottom"
+               android:layout_marginRight="160dp"
+               android:layout_alignLeft="@+id/title"
+               android:layout_alignStart="@id/title"
+               android:layout_alignRight="@+id/layoutDate"
+               android:layout_alignTop="@id/layoutDate"
+               android:layout_alignEnd="@id/layoutDate"/>
+           <TextView
+               android:id="@+id/title"
+               android:layout_marginTop="10dp"
+               android:textSize="17sp"
+               android:layout_marginLeft="16dp"
+               android:layout_marginRight="16dp"
+               android:textStyle="bold"
+               android:text="Title"
+               android:textColor="@color/colorTextTitle"
+               android:layout_below="@+id/img"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:fontFamily="sans-serif"/>
+
+           <TextView
+               android:id="@+id/description"
+               android:layout_marginTop="5dp"
+               android:textSize="17sp"
+               android:layout_marginLeft="16dp"
+               android:layout_marginRight="16dp"
+               android:text="Description"
+               android:textColor="@color/colorTextTitle"
+               android:layout_below="@+id/title"
+               android:layout_width="wrap_content"
+               android:layout_height="20dp" />
+
+           <TextView
+               android:id="@+id/source"
+               android:layout_marginTop="5dp"
+               android:textSize="17sp"
+               android:layout_marginLeft="16dp"
+               android:text="Source"
+               android:fontFamily="sans-serif"
+               android:textStyle="bold"
+               android:layout_marginBottom="10dp"
+               android:textColor="@color/colorTextTitle"
+               android:layout_below="@+id/description"
+               android:layout_width="wrap_content"
+               android:layout_height="20dp"
+               android:drawablePadding="10dp"
+               android:maxLines="1"
+               android:singleLine="true"
+               android:ellipsize="end"/>
+
+           <TextView
+               android:id="@+id/time"
+               android:layout_marginTop="5dp"
+               android:textSize="17sp"
+               android:layout_marginLeft="16dp"
+               android:layout_marginRight="16dp"
+               android:text="Time"
+               android:fontFamily="sans-serif"
+               android:layout_marginBottom="10dp"
+               android:textColor="@color/colorTextTitle"
+               android:layout_toRightOf="@+id/source"
+               android:layout_below="@id/description"
+               android:layout_width="wrap_content"
+               android:singleLine="true"
+               android:ellipsize="end"
+               android:layout_height="20dp" />
+       </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
