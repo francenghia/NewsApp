@@ -1,6 +1,7 @@
 package com.example.franc.newsapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.franc.newsapp.Models.Articles;
+import com.example.franc.newsapp.NewsDetailActivity;
 import com.example.franc.newsapp.R;
 import com.example.franc.newsapp.Utils.OnItemOneClickListener;
 import com.example.franc.newsapp.Utils.Utils;
@@ -85,7 +87,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         holder.setListener(new OnItemOneClickListener() {
             @Override
             public void onClick(View v, int position) {
-                Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, NewsDetailActivity.class);
+                Articles article = articles.get(position);
+                intent.putExtra("url",article.getUrl());
+                intent.putExtra("title",article.getTitle());
+                intent.putExtra("img",article.getUrlToImage());
+                intent.putExtra("date",article.getPublishedAt());
+                intent.putExtra("source",article.getSource().getName());
+                intent.putExtra("author",article.getAuthor());
+                context.startActivity(intent);
             }
         });
 
