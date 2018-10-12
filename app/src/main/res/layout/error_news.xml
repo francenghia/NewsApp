@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/errorRelative"
+    android:background="@color/colorBackground"
+    android:visibility="visible">
+    <ImageView
+        android:id="@+id/imageError"
+        android:layout_centerHorizontal="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/news" />
+    <ImageView
+        android:layout_below="@+id/imageError"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/status_warning"/>
+
+    <TextView
+        android:id="@+id/errorTitle"
+        android:layout_below="@id/imageError"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="Error"
+        android:fontFamily="casual"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_below="@id/errorTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Message"
+        android:gravity="center"
+        android:fontFamily="casual"
+        android:textColor="@color/colorPrimary"/>
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnEntry"
+        android:layout_below="@id/errorMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Try again"
+        android:textAllCaps="false"
+        android:fontFamily="casual"
+        android:padding="8dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorAccent"/>
+</RelativeLayout>

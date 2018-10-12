@@ -1,13 +1,18 @@
 package com.example.franc.newsapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -37,6 +42,9 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
+
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,7 +79,8 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
         requestOptions.error(Utils.getRandomDrawbleColor());
 
         Glide.with(this)
-                .load(requestOptions)
+                .load(mImg)
+                .apply(requestOptions)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView);
 
@@ -86,7 +95,7 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
         } else {
             author = "";
         }
-        time.setText(mSource +author+" \u2022 "+ Utils.DateToTimeFormat(mDate));
+        time.setText(mSource + author + " \u2022 " + Utils.DateToTimeFormat(mDate));
 
         initWebView(mUrl);
     }
@@ -133,5 +142,38 @@ public class NewsDetailActivity extends AppCompatActivity implements AppBarLayou
             titleAppBar.setVisibility(View.GONE);
             isHideToolbarView = !isHideToolbarView;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.view_web: {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(mUrl));
+                startActivity(intent);
+                break;
+            }
+            case R.id.share: {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("text/plan");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, mSource);
+                    String body = mTitle + "\n" + mUrl + "\n" + "Share from News App" + "\n";
+                    intent.putExtra(Intent.EXTRA_TEXT, body);
+                    startActivity(intent.createChooser(intent, "Share with :"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

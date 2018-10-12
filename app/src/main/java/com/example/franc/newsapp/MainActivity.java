@@ -17,6 +17,9 @@ import android.view.MenuItem;
 import android.support.v7.widget.SearchView;
 
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,10 +48,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private TextView topHeadLine;
+
+    private RelativeLayout relativeError;
+    private ImageView imgError;
+    private TextView txtTitleError,txtErrorMessage;
+    private Button btnTryAgain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Error
+        relativeError =findViewById(R.id.errorRelative);
+        imgError=findViewById(R.id.imageError);
+        txtErrorMessage =findViewById(R.id.errorMessage);
+        txtTitleError=findViewById(R.id.errorTitle);
+        btnTryAgain =findViewById(R.id.btnEntry);
 
         swipeRefreshLayout = findViewById(R.id.swip_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -67,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void loadData(final String keyword) {
+        relativeError.setVisibility(View.GONE);
         topHeadLine.setVisibility(View.INVISIBLE);
         swipeRefreshLayout.setRefreshing(true);
         ApiInterface mService = ApiClient.getApiClient().create(ApiInterface.class);
@@ -99,18 +115,48 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 } else {
                     topHeadLine.setVisibility(View.INVISIBLE);
                     swipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(MainActivity.this, "No Result", Toast.LENGTH_SHORT).show();
+                    String errorCode = "";
+                    switch (response.code())
+                    {
+                        case 404:
+                            errorCode ="404 not found";
+                            break;
+                        case 500:
+                            errorCode ="500 service broken";
+                            break;
+                        default:
+                            errorCode ="unknown error";
+                            break;
+                    }
+
+                    ShowErrorMessage(R.drawable.news,"No Result","Please try again !"+"\n"+errorCode);
                 }
             }
 
             @Override
             public void onFailure(Call<News> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
-                Log.d("Kiem tra", t.getMessage().toString());
+                ShowErrorMessage(R.drawable.news,"Oops...","Network failed !Please try again !"+"\n"+t.getMessage().toString());
             }
         });
 
 
+    }
+
+    public void ShowErrorMessage(int imageView,String title,String message){
+        if(relativeError.getVisibility() == View.GONE){
+            relativeError.setVisibility(View.VISIBLE);
+        }
+        imgError.setImageResource(imageView);
+        txtTitleError.setText(title);
+        txtErrorMessage.setText(message);
+
+        btnTryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onLoadingSwipeRefresh("");
+            }
+        });
     }
 
     @Override
